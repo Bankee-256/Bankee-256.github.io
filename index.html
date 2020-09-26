@@ -64,6 +64,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-关于Hadoop格式化之后的问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/26/%E5%85%B3%E4%BA%8EHadoop%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B9%8B%E5%90%8E%E7%9A%84%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-09-26T15:43:55.000Z" itemprop="datePublished">2020-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/26/%E5%85%B3%E4%BA%8EHadoop%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B9%8B%E5%90%8E%E7%9A%84%E9%97%AE%E9%A2%98/">关于Hadoop格式化之后的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="格式化datanode之后出现的一些错误"><a href="#格式化datanode之后出现的一些错误" class="headerlink" title="格式化datanode之后出现的一些错误"></a>格式化datanode之后出现的一些错误</h2><p>今天在做作业时上传了一个大文件，但是看不到文件名，于是想格式化之后再重新来一次，格式化完成之后再上传时，报出了以下错误：XXX could only be replicated to 0 nodes instead of minReplication (=1). 百度了之后发现这是因为datanode没有启动，试了几种解决方案，下面有两个有效的：</p>
+<ol>
+<li><p>室友的解决方法：将hadoop目录下的data文件夹删除，再格式化，再start-all.cmd。此解决方法在室友电脑上有效，但是在我的电脑上无效。</p>
+</li>
+<li><p>我的解决方法：在start-all.cmd的基础上再执行start-dfs.cmd和start-yarn.cmd，手动开启datanode，解决了以上问题。</p>
+</li>
+</ol>
+<p>但是在我想重现那个错误时，那个错误莫名其妙的消失了，我也不知道为什么。</p>
+<p>除了这个问题，今天还遇到一个未解决的问题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IOUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">down</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">        conf.set(<span class="string">&quot;fs,defaultFS&quot;</span>,<span class="string">&quot;hdfs://localhost:9000&quot;</span>);</span><br><span class="line">        FileSystem fs = FileSystem.get(conf);</span><br><span class="line">        Path src = <span class="keyword">new</span> Path(<span class="string">&quot;/user/bigdata/test.txt&quot;</span>);</span><br><span class="line">        InputStream in = fs.open(src);</span><br><span class="line">        IOUtils.copyBytes(in, System.out, <span class="number">4096</span>, <span class="keyword">false</span>);</span><br><span class="line">        IOUtils.closeStream(in);</span><br><span class="line">        fs.close();</span><br><span class="line">        System.out.println(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;SUCCEED!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在运行上面程序是会出现File /user/bigdata/test.txt does not exist错误，但是在localhost:50070可以看到那个文件，并且用cmd把它可以下载下来，说明路径和文件都没有问题，可能是JavaAPI出问题了，但目前还没发现哪里错了，如果发现了会及时更新。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/09/26/%E5%85%B3%E4%BA%8EHadoop%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B9%8B%E5%90%8E%E7%9A%84%E9%97%AE%E9%A2%98/" data-id="ckfjv5ga60000pou660mw2ks3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-leetcode-501-二叉搜索树中的众数" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/09/24/leetcode-501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0/" class="article-date">
@@ -450,6 +497,10 @@
       <ul>
         
           <li>
+            <a href="/2020/09/26/%E5%85%B3%E4%BA%8EHadoop%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B9%8B%E5%90%8E%E7%9A%84%E9%97%AE%E9%A2%98/">关于Hadoop格式化之后的问题</a>
+          </li>
+        
+          <li>
             <a href="/2020/09/24/leetcode-501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0/">leetcode 501.二叉搜索树中的众数</a>
           </li>
         
@@ -463,10 +514,6 @@
         
           <li>
             <a href="/2020/09/17/leetcode-2/">leetcode 2</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/17/%E4%B8%8B%E6%AC%A1%E6%B5%8B%E9%AA%8C%E5%BF%85%E8%BF%87%EF%BC%81%EF%BC%81%EF%BC%81/">下次测验必过！！！</a>
           </li>
         
       </ul>
