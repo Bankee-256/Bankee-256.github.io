@@ -64,6 +64,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post“-10-15每日一题" class="article article-type-post“" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/15/10-15%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="article-date">
+  <time datetime="2020-10-14T16:39:08.000Z" itemprop="datePublished">2020-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/15/10-15%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">10.15每日一题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>时隔这么几天再更新的原因是中间的每日一题基本都是直接CV的，自己也没有仔细看。</p>
+<h2 id="1002-查找常用字符"><a href="#1002-查找常用字符" class="headerlink" title="1002. 查找常用字符"></a>1002. 查找常用字符</h2><p>给定仅有小写字母组成的字符串数组 A，返回列表中的每个字符串中都显示的全部字符（包括重复字符）组成的列表。例如，如果一个字符在每个字符串中出现 3 次，但不是 4 次，则需要在最终答案中包含该字符 3 次。</p>
+<p>你可以按任意顺序返回答案。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：[&quot;bella&quot;,&quot;label&quot;,&quot;roller&quot;]</span><br><span class="line">输出：[&quot;e&quot;,&quot;l&quot;,&quot;l&quot;]</span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：[&quot;cool&quot;,&quot;lock&quot;,&quot;cook&quot;]</span><br><span class="line">输出：[&quot;c&quot;,&quot;o&quot;]</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">1 &lt;&#x3D; A.length &lt;&#x3D; 100</span><br><span class="line">1 &lt;&#x3D; A[i].length &lt;&#x3D; 100</span><br><span class="line">A[i][j] 是小写字母</span><br></pre></td></tr></table></figure>
+<p>这个题目估计是机翻的，表述有点迷，说人话就是找到每个字母在每个字符串之中出现的最大次数。如果第一个字符串中有2个i，第二个字符串中有3个i，则最终输出2个i。</p>
+<p>我最开始看到这道题时脑子不太好使，虽然题目很简单，但是一时间居然没有可以立刻动手的思路，最后使用了一个极其冗杂的算法，测试数据集不是很大但是耗时180ms。我的思路是从头开始记录每个字符串中每个字母出现的次数，以{‘a’:1}这样的方式储存在哈希表中，在向后遍历其他字符串时，若其它字符串没有这个字母，则将次数记为-1，代表这个字母不符合条件；若其他字符串这个字母的出现次数小于字典里已经记录的次数，则更新字典。最终按照字典记录的次数输出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">commonChars</span>(<span class="params">self, A: List[str]</span>) -&gt; List[str]:</span></span><br><span class="line">        word_cnt = &#123;<span class="string">&#x27;a&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;b&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;c&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;d&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;e&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;f&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;g&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;h&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;i&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;j&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;k&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;l&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;m&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;n&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;o&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;p&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;q&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;r&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;s&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;t&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;u&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;v&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;w&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;x&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;y&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;z&#x27;</span>:<span class="number">0</span>&#125;</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">cnt</span>(<span class="params">S, c</span>):</span></span><br><span class="line">            cnt = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> word <span class="keyword">in</span> S:</span><br><span class="line">                <span class="keyword">if</span> word == c:</span><br><span class="line">                    cnt += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> cnt</span><br><span class="line">        <span class="keyword">for</span> i, s <span class="keyword">in</span> enumerate(A):</span><br><span class="line">            <span class="keyword">for</span> key <span class="keyword">in</span> word_cnt.keys():</span><br><span class="line">                tmp = cnt(s, key)</span><br><span class="line">                <span class="comment"># print(s+&quot; have &quot;+str(tmp)+&quot; &quot;+key)</span></span><br><span class="line">                <span class="keyword">if</span> word_cnt[key] == <span class="number">0</span> <span class="keyword">and</span> i == <span class="number">0</span>:</span><br><span class="line">                    word_cnt[key] = tmp</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> tmp == <span class="number">0</span>:</span><br><span class="line">                        word_cnt[key] = <span class="number">-1</span></span><br><span class="line">                    <span class="keyword">elif</span> word_cnt[key] &gt;= tmp:</span><br><span class="line">                        word_cnt[key] = tmp</span><br><span class="line">        res = []</span><br><span class="line">        <span class="comment"># print(word_cnt[&quot;o&quot;])</span></span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> word_cnt.keys():</span><br><span class="line">            <span class="keyword">if</span> word_cnt[key] != <span class="number">-1</span>:</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(word_cnt[key]):</span><br><span class="line">                    res.append(key)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<p>可以看看别人的一行解法，力扣的乐趣之一就是看这些快乐算法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">commonChars</span>(<span class="params">self, A: List[str]</span>) -&gt; List[str]:</span></span><br><span class="line">        <span class="keyword">return</span> reduce(<span class="keyword">lambda</span> x, y: x&amp;y, map(Counter, A)).elements()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/15/10-15%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" data-id="ckg9n57iw00006wu61mda1u6m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-10-11-每日一题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/11/10-11-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="article-date">
@@ -483,45 +529,6 @@
 
 
   
-    <article id="post-第一篇博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/09/12/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-date">
-  <time datetime="2020-09-12T01:42:10.000Z" itemprop="datePublished">2020-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/12/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">第一篇博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#一个随意的标题<br>这个网页搭建的过程十分曲折，先是去阿里云租了一个服务器，将域名的A定位到了服务器的公网IP，定位到大陆服务器的IP一定是要备案的，但是我在备案过程中发现“.wtf”这个域名是不可以备案的，于是无奈转投了github。</p>
-<p>在网上搜索了github pages和hexo，跟着教程弄还挺顺利的。弄好了之后发现仓库名整错了，改了之后就把本地文件删除了，然后发现hexo也跟着被删除了，凌晨一点也不想再搞了，就第二天早上一大早爬起来赶紧弄好了。</p>
-<p>要说在这上面发文章和直接在朋友圈发文章有什么区别，我觉得在功能上没什么区别，但在心理上比较有成就感，以上。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/12/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" data-id="ckf5l2foz0001r4u6eu4m6tgy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -558,6 +565,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/15/10-15%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">10.15每日一题</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/11/10-11-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">10.11 每日一题</a>
           </li>
         
@@ -571,10 +582,6 @@
         
           <li>
             <a href="/2020/09/24/leetcode-501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0/">leetcode 501.二叉搜索树中的众数</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/21/leetcode-108-%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">leetcode 108.将有序数组转换为二叉搜索树</a>
           </li>
         
       </ul>
