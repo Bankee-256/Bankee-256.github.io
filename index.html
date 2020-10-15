@@ -64,6 +64,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-10-15刷题记录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/15/10-15%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2020-10-15T15:30:14.000Z" itemprop="datePublished">2020-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/15/10-15%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">10.15刷题记录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天的每日一题是二叉树的层次遍历，之前做到过差不多的题目，主要是利用队列存储每一层的元素。题目和代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：</span><br><span class="line"></span><br><span class="line">struct Node &#123;</span><br><span class="line">  int val;</span><br><span class="line">  Node *left;</span><br><span class="line">  Node *right;</span><br><span class="line">  Node *next;</span><br><span class="line">&#125;</span><br><span class="line">填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。</span><br><span class="line"></span><br><span class="line">初始状态下，所有 next 指针都被设置为 NULL。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输入：&#123;&quot;$id&quot;:&quot;1&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;2&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;3&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:4&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$id&quot;:&quot;4&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:5&#125;,&quot;val&quot;:2&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$id&quot;:&quot;5&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;6&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:6&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$id&quot;:&quot;7&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:7&#125;,&quot;val&quot;:3&#125;,&quot;val&quot;:1&#125;</span><br><span class="line"></span><br><span class="line">输出：&#123;&quot;$id&quot;:&quot;1&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;2&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;3&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;4&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;5&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;6&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:7&#125;,&quot;right&quot;:null,&quot;val&quot;:6&#125;,&quot;right&quot;:null,&quot;val&quot;:5&#125;,&quot;right&quot;:null,&quot;val&quot;:4&#125;,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;7&quot;,&quot;left&quot;:&#123;&quot;$ref&quot;:&quot;5&quot;&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;6&quot;&#125;,&quot;val&quot;:3&#125;,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;4&quot;&#125;,&quot;val&quot;:2&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;7&quot;&#125;,&quot;val&quot;:1&#125;</span><br><span class="line"></span><br><span class="line">解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line"></span><br><span class="line">你只能使用常量级额外空间。</span><br><span class="line">使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"># Definition for a Node.</span></span><br><span class="line"><span class="string">class Node:</span></span><br><span class="line"><span class="string">    def __init__(self, val: int = 0, left: &#x27;Node&#x27; = None, right: &#x27;Node&#x27; = None, next: &#x27;Node&#x27; = None):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.left = left</span></span><br><span class="line"><span class="string">        self.right = right</span></span><br><span class="line"><span class="string">        self.next = next</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connect</span>(<span class="params">self, root: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; &#x27;Node&#x27;:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        q = collections.deque([root])</span><br><span class="line">        <span class="keyword">while</span> q:</span><br><span class="line">            size = len(q)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(size):</span><br><span class="line">                node = q.popleft()</span><br><span class="line">                <span class="keyword">if</span> i &lt; size - <span class="number">1</span>:</span><br><span class="line">                    node.next = q[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    q.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    q.append(node.right)</span><br><span class="line">        <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
+
+<p>另外一道题是相交链表，题目如下，虽然题目比较简单，但是却有比较精妙的解法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">160. 相交链表</span><br><span class="line">编写一个程序，找到两个单链表相交的起始节点。</span><br><span class="line"></span><br><span class="line">如下面的两个链表：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">在节点 c1 开始相交。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输入：intersectVal &#x3D; 8, listA &#x3D; [4,1,8,4,5], listB &#x3D; [5,0,1,8,4,5], skipA &#x3D; 2, skipB &#x3D; 3</span><br><span class="line">输出：Reference of the node with value &#x3D; 8</span><br><span class="line">输入解释：相交节点的值为 8 （注意，如果两个链表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,0,1,8,4,5]。在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输入：intersectVal &#x3D; 2, listA &#x3D; [0,9,1,2,4], listB &#x3D; [3,2,4], skipA &#x3D; 3, skipB &#x3D; 1</span><br><span class="line">输出：Reference of the node with value &#x3D; 2</span><br><span class="line">输入解释：相交节点的值为 2 （注意，如果两个链表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [0,9,1,2,4]，链表 B 为 [3,2,4]。在 A 中，相交节点前有 3 个节点；在 B 中，相交节点前有 1 个节点。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输入：intersectVal &#x3D; 0, listA &#x3D; [2,6,4], listB &#x3D; [1,5], skipA &#x3D; 3, skipB &#x3D; 2</span><br><span class="line">输出：null</span><br><span class="line">输入解释：从各自的表头开始算起，链表 A 为 [2,6,4]，链表 B 为 [1,5]。由于这两个链表不相交，所以 intersectVal 必须为 0，而 skipA 和 skipB 可以是任意值。</span><br><span class="line">解释：这两个链表不相交，因此返回 null。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line"></span><br><span class="line">如果两个链表没有交点，返回 null.</span><br><span class="line">在返回结果后，两个链表仍须保持原有的结构。</span><br><span class="line">可假定整个链表结构中没有循环。</span><br><span class="line">程序尽量满足 O(n) 时间复杂度，且仅用 O(1) 内存。</span><br></pre></td></tr></table></figure>
+
+<p>要求出答案其实很容易，用暴力搜索每一个节点即可，但是如果限制时间复杂度为O(n)，空间复杂度为O(1)，就需要好好思考一下解法了，其实这个解法也不是我自己想出来的，是去年数据结构课中讲的，在力扣刷题的过程中，发现许多题的解法都在数据结构课上讲过。这道题解法的官方名称也许叫“双指针”，但我更倾向于叫它8字遍历，因为每个指针遍历完一个链表之后，会从另外一个链表的头部开始遍历。这个算法的主要思想是保证两个节点会同时到达交叉节点（如果有的话），它的核心思想是每个节点都走相同长度的路程。具体怎么实现它呢？就是先定义pa, pb指针分别指向链表a,b的头部，并且同步的向后移动，当一个节点到达末尾时，则下一步将它移动到另外一个链表的头部，比如pa遍历完a后转移到pb。这样这两个节点会同时到达交叉节点，如果没有交叉节点，那么这两个节点会同时到达末尾。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getIntersectionNode</span>(<span class="params">self, headA: ListNode, headB: ListNode</span>) -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> headA <span class="keyword">or</span> <span class="keyword">not</span> headB:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        pa = headA</span><br><span class="line">        pb = headB</span><br><span class="line">        flag1 = <span class="number">0</span></span><br><span class="line">        flag2 = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">not</span> flag1 <span class="keyword">or</span> <span class="keyword">not</span> flag2) <span class="keyword">or</span> (pa <span class="keyword">and</span> pb):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> pa <span class="keyword">and</span> flag1 == <span class="number">0</span>:</span><br><span class="line">                pa = headB</span><br><span class="line">                flag1 = <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> pb <span class="keyword">and</span> flag2 == <span class="number">0</span>:</span><br><span class="line">                pb = headA</span><br><span class="line">                flag2 = <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> pa == pb:</span><br><span class="line">                <span class="keyword">return</span> pa</span><br><span class="line">            pa = pa.next</span><br><span class="line">            pb = pb.next</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/15/10-15%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" data-id="ckgazulew0000asu62i7y4k27" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post“-10-15每日一题" class="article article-type-post“" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/15/10-15%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="article-date">
@@ -483,52 +529,6 @@
 
 
   
-    <article id="post-PTA-Basic-level-1076" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/09/17/PTA-Basic-level-1076/" class="article-date">
-  <time datetime="2020-09-16T16:00:54.000Z" itemprop="datePublished">2020-09-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/17/PTA-Basic-level-1076/">PTA Basic level 1076</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>            1076 Wifi密码(python实现)</code></pre>
-<p>“各位亲爱的同学们，鉴于大家有时需要使用 wifi，又怕耽误亲们的学习，现将 wifi 密码设置为下列数学题答案：A-1；B-2；C-3；D-4；请同学们自己作答，每两日一换。谢谢合作！！~”—— 老师们为了促进学生学习也是拼了…… 本题就要求你写程序把一系列题目的答案按照卷子上给出的对应关系翻译成 wifi 的密码。这里简单假设每道选择题都有 4 个选项，有且只有 1 个正确答案。</p>
-<p>输入格式：<br>输入第一行给出一个正整数 N（≤ 100），随后 N 行，每行按照 编号-答案 的格式给出一道题的 4 个选项，T 表示正确选项，F 表示错误选项。选项间用空格分隔。</p>
-<p>输出格式：<br>在一行中输出 wifi 密码。</p>
-<p>输入样例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">8</span><br><span class="line">A-T B-F C-F D-F</span><br><span class="line">C-T B-F A-F D-F</span><br><span class="line">A-F D-F C-F B-T</span><br><span class="line">B-T A-F C-F D-F</span><br><span class="line">B-F D-T A-F C-F</span><br><span class="line">A-T C-F B-F D-F</span><br><span class="line">D-T B-F C-F A-F</span><br><span class="line">C-T A-F B-F D-F</span><br></pre></td></tr></table></figure>
-
-<p>输出样例：<br><code>13224143</code></p>
-<p>我的解题思路比较基础，用两层for循环暴力搜索正确答案，然后再在输出后面加上对应的数字。搜索正确答案时用了string[-1]来判断是否是正确答案，用字典来找到对应的数字，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = int(input())</span><br><span class="line">judge = []</span><br><span class="line">grade = <span class="string">&quot;&quot;</span></span><br><span class="line">score = &#123;<span class="string">&#x27;A&#x27;</span>: <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;B&#x27;</span>: <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;C&#x27;</span>: <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;D&#x27;</span>: <span class="string">&#x27;4&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(a):</span><br><span class="line">    judge = list(map(str, input().split()))</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">if</span> judge[j][<span class="number">-1</span>] == <span class="string">&quot;T&quot;</span>:</span><br><span class="line">            grade += score[judge[j][<span class="number">0</span>]]</span><br><span class="line">print(grade)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/17/PTA-Basic-level-1076/" data-id="ckf5l2fou0000r4u6aoou2rjr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -565,6 +565,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/15/10-15%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">10.15刷题记录</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/15/10-15%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">10.15每日一题</a>
           </li>
         
@@ -578,10 +582,6 @@
         
           <li>
             <a href="/2020/09/26/%E5%85%B3%E4%BA%8EHadoop%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B9%8B%E5%90%8E%E7%9A%84%E9%97%AE%E9%A2%98/">关于Hadoop格式化之后的问题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/24/leetcode-501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0/">leetcode 501.二叉搜索树中的众数</a>
           </li>
         
       </ul>
